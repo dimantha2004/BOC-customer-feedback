@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank of Ceylon Feedback QR Code</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 32px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #0f3b7c;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    
+    .instructions {
+      background-color: #f1f5f9;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    
+    .instructions h2 {
+      font-size: 1.1rem;
+      color: #0f3b7c;
+      margin-top: 0;
+    }
+    
+    .instructions ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+    
+    .instructions li {
+      margin-bottom: 8px;
+      color: #334155;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    
+    .logo-icon {
+      color: #f59e0b;
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 6v6l4 2"></path>
+      </svg>
+      <h1>Bank of Ceylon</h1>
+    </div>
+    <p class="subtitle">Scan QR Code to provide feedback</p>
+    
+    <div class="qr-container" id="qrcode"></div>
+    
+    <div class="instructions">
+      <h2>Instructions:</h2>
+      <ol>
+        <li>Scan the QR code using your mobile device</li>
+        <li>Select the service you used</li>
+        <li>Rate your experience (1-5 stars)</li>
+        <li>Submit your feedback</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUrl = window.location.href;
+      // Get the base URL by removing the current page
+      const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+      // Construct the feedback page URL
+      const feedbackUrl = baseUrl.replace('/public', '');
+      
+      // Generate QR code
+      const qr = qrcode(0, 'M');
+      qr.addData(feedbackUrl);
+      qr.make();
+      
+      const qrCodeContainer = document.getElementById('qrcode');
+      qrCodeContainer.innerHTML = qr.createImgTag(6, 8);
+      
+      // Add some styling to the QR code
+      const qrImage = qrCodeContainer.querySelector('img');
+      if (qrImage) {
+        qrImage.style.borderRadius = '8px';
+        qrImage.style.border = '1px solid #e2e8f0';
+      }
+    });
+  </script>
+</body>
+</html>
